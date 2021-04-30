@@ -1,1 +1,2 @@
-# capstone
+# Capstone
+App application
