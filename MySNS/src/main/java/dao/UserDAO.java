@@ -1,8 +1,9 @@
-package core;
+package dao;
 import java.sql.*;
 import java.util.ArrayList;
 
 import javax.naming.NamingException;
+
 import util.*;
 public class UserDAO {
 	public boolean insert(String uid, String upass, String uname) throws NamingException, SQLException {
@@ -74,7 +75,6 @@ public int login(String uid, String upass) throws NamingException, SQLException 
 		if (stmt != null) stmt.close(); 
 		if (conn != null) conn.close();}
 	}
-
 public ArrayList<UserObj> getList() throws NamingException, SQLException {
 	Connection conn = ConnectionPool.get();
 	PreparedStatement stmt = null;
@@ -95,3 +95,4 @@ public ArrayList<UserObj> getList() throws NamingException, SQLException {
 }
 }
 }
+

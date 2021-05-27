@@ -1,4 +1,4 @@
-package core;
+package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public ArrayList<FeedObj> getList() throws NamingException, SQLException {
 		rs = stmt.executeQuery();
 		ArrayList<FeedObj> feeds = new ArrayList<FeedObj>();
 		while(rs.next()) {
-		feeds.add(new FeedObj(rs.getString("id"), rs.getString("content"), rs.getString("ts"),rs.getString("images")));
+		feeds.add(new FeedObj(rs.getString("id"), rs.getString("content"), rs.getString("ts"), rs.getString("images")));
 		}
 		return feeds;
 		} finally {
