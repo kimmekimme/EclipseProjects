@@ -33,8 +33,8 @@
 	}
 	FeedDAO dao = new FeedDAO();
 	if (dao.insert(uid, ucon, ufname) == true)
-		out.print("작성하신 글이 업로드 되었습니다.");//sendredirect()
+		out.print("OK");//"작성하신 글이 업로드 되었습니다.");//sendredirect()
 	else
-		out.print("작성글의 업로드 중 오류가 발생하였습니다.");
+		out.print("ER");//("작성글의 업로드 중 오류가 발생하였습니다.");
 	
 %>
