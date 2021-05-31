@@ -6,7 +6,7 @@
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%
-	String uid = null, ucon = null, ufname = null;
+	String jsonstr = null, ufname = null;
 	byte[] ufile = null;
 	request.setCharacterEncoding("utf-8");
 
@@ -19,8 +19,8 @@
 		String name = item.getFieldName();
 		if(item.isFormField()) {
 		String value = item.getString("utf-8");
-		if (name.equals("id")) uid = value;
-		else if (name.equals("content")) ucon = value;
+		if (name.equals("jsonstr")) jsonstr = value;
+		//else if (name.equals("content")) ucon = value;
 	}
 	else {
 		if (name.equals("image")) {
@@ -32,8 +32,9 @@
 		}	
 	}
 	FeedDAO dao = new FeedDAO();
-	if (dao.insert(uid, ucon, ufname) == true)
-		out.print("OK");//"작성하신 글이 업로드 되었습니다.");//sendredirect()
+	if (dao.insert(jsonstr) == true){
+		out.print("OK");
+	}//"작성하신 글이 업로드 되었습니다.");//sendredirect()
 	else
 		out.print("ER");//("작성글의 업로드 중 오류가 발생하였습니다.");
 	

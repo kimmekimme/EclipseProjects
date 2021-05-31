@@ -15,6 +15,7 @@
 	session.setAttribute("id", uid);	
 
 	ArrayList<FeedObj> feeds = (new FeedDAO()).getList();
+
 	String str = "<table align=center>";
 	str += "<tr height=40><td><b>작성글 리스트</b></td>";
 	str += "<td align=right>";
@@ -34,6 +35,7 @@
 		str += "<tr><td colspan=2>" + imgstr + "</td></tr>";
 		str += "<tr><td colspan=2>" + feed.getContent() + "</td></tr>";
 	}
+
 	str += "</table>";
 	out.print(str);
 %>

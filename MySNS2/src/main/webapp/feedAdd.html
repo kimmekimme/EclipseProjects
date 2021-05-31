@@ -58,42 +58,71 @@ input[type=file] {
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/core.js"></script>
 <script>
+$(document).ready(function() {
+	Page.init(setup);
+/*AJAX.call("jsp/session.jsp", null, function(data) {
+	var uid = data.trim();
+	if (uid == "null") {
+		window.location.href = "login.html";
+		return;
+		}
+	});*/
+});
 
 
-
-
-
+function setup(uid){
+	alert("로그인 아이디: " + uid);
+}
 function upload(){
 	var id = $("#id").val().trim();
 		if (id == "") {
-		alert("아이디를 입력해 주세요.");
-		$("#id").focus();
-		return;
+			alert("아이디를 입력해 주세요.");
+			$("#id").focus();
+			return;
 		}
+		
 	var content = $("#content").val().trim();
 		if (content == "") {
-		alert("작성글을 입력해 주세요.");
-		$("#content").focus();
-		return;
+			alert("작성글을 입력해 주세요.");
+			$("#content").focus();
+			return;
 		}
+	
 		var imgobj = $("#image")[0].files[0];
-		var params = new FormData(); // multipart/form-data를 전송하기 위해 웹 표준에서 제공하는 객체
-		params.append("id", id);
-		params.append("content", content);
+		var jsonobj = {id: id, content: content, ts: getTime()};
 		if (imgobj != null) {
-		params.append("image", imgobj);
+		jsonobj.images = [imgobj.name];
 		}
+		var params = new FormData(); // multipart/form-data를 전송하기 위해 웹 표준에서 제공하는 객체
+		//params.append("id", id);
+		//params.append("content", content);
+		params.append("jsonstr", JSON.stringify(jsonobj));
+		if (imgobj != null) {
+			params.append("image", imgobj);
+		}
+	
 		var url = "jsp/feedAdd.jsp";
 		AJAX.call(url, params, function(data) {
 		var code = data.trim();
 		if (code == "ER") {
-		alert("작성 글의 업로드 중 오류가 발생하였습니다.");
+			alert("작성 글의 업로드 중 오류가 발생하였습니다.");
 		}
 		else { // == "OK"
-		alert("작성 글의 업로드가 완료되었습니다.");
-		window.location.href = "main.html";
+			alert("작성 글의 업로드가 완료되었습니다.");
+			window.location.href = "main.html";
 		}
 		}, true);
 		}
+		
+function getTime() {
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = ("0" + (1 + date.getMonth())).slice(-2);
+	var day = ("0" + date.getDate()).slice(-2);
+	var hour = ("0" + date.getHours()).slice(-2);
+	var min = ("0" + date.getMinutes()).slice(-2);
+	var sec = ("0" + date.getSeconds()).slice(-2);
+	return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+	}
 </script>
 
