@@ -42,7 +42,7 @@ input[type=file] {
 	<div class="page-hdr">MySNS</div>
 	<div class="page-body">
 		<div class="section pad-24 mtop-30">
-			<input id="id" type="text" placeholder="아이디 (이메일주소)">
+			<!--<input id="id" type="text" placeholder="아이디 (이메일주소)">-->
 		<textarea id="content" class="mtop-10" placeholder="이곳에 글을 작성해 주세요."> </textarea>
 		<div class="section pad-4 mtop-30">
 			<div class="desc">아래에서 이미지를 선택해주세요.</div>
@@ -69,16 +69,20 @@ $(document).ready(function() {
 	});*/
 });
 
-
+var loginId = null;
 function setup(uid){
-	alert("로그인 아이디: " + uid);
+	loginId = uid;
+	console.log(loginId);
 }
 function upload(){
+	/*
 	var id = $("#id").val().trim();
 		if (id == "") {
 			alert("아이디를 입력해 주세요.");
 			$("#id").focus();
 			return;
+			*/
+			id = loginId;
 		}
 		
 	var content = $("#content").val().trim();
@@ -109,10 +113,11 @@ function upload(){
 		}
 		else { // == "OK"
 			alert("작성 글의 업로드가 완료되었습니다.");
+			DataCache.remove("mainCache");
 			window.location.href = "main.html";
 		}
 		}, true);
-		}
+		
 		
 function getTime() {
 	var date = new Date();
