@@ -85,3 +85,13 @@ color: #D44010;
 border: 1px solid #D44010;
 border-radius: 4px;
 }
+
+.hide { display: none; }
+.show { display: block; }
+.page-msg {
+position: absolute;
+left: 0px; top: 50%;
+width: 100%;
+text-align: center;
+color: #888;
+}

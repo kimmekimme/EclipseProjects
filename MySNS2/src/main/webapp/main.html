@@ -32,8 +32,21 @@ $(document).ready(function() {
 
 var minNo = -1;
 var feedList = [];
+var frIds = null;
 
 function start(uid) {
+	//console.log(uid);
+	frIds = '"' + uid + '"';
+	AJAX.call("jsp/friendList.jsp", {id: uid}, function(data) {
+	var list = JSON.parse(data.trim());
+	for (var i=0; i<list.length; i++) {
+	frIds += ', "' + list[i].id + '"';
+	}
+	start2(uid);
+	});
+}
+	
+function start2(uid) {
 	var feeds = DataCache.get("mainCache");
 	if (feeds != null) {
 	console.log("[start] fetch the existing feed list from DataCache ...");
@@ -41,7 +54,7 @@ function start(uid) {
 	show(feedList);
 	} //캐시
 	else {
-	AJAX.call("jsp/feedGetGroup.jsp", null, function(data) {
+	AJAX.call("jsp/feedGetGroup.jsp", {frids: frIds}, function(data) {
 	// TODO something here ...
 		var feeds = JSON.parse(data.trim());
 		console.log("[start] fetch a new feed list from the server ...");
@@ -84,7 +97,7 @@ function getFeedCode(feed) {
 		if (feed.images != null) {
 			var imgurl = "images/" + feed.images[0];
 			str += "<div class='image' style='background-image: url(\"" + imgurl + "\")'></div>";
-		}
+		}//이미지 업데이트
 		str += "<div class='text'>" + feed.content + "</div>";
 		str += "</div>";
 		return str;
@@ -100,7 +113,7 @@ function showFeed(fno) {
 }
 
 function getNext() {
-	var params = {maxNo: minNo};
+	var params =  {frids: frIds, limit: minNo};
 	AJAX.call("jsp/feedGetGroup.jsp", params, function(data) {
 		var feeds = JSON.parse(data.trim());
 		feedList = feedList.concat(feeds);

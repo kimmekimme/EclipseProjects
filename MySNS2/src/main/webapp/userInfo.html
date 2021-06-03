@@ -156,6 +156,7 @@ function goHome() {
 function logout() {
 AJAX.call("jsp/logout.jsp", null, function(data) {
 alert("로그아웃을 완료하였습니다.");
+DataCache.remove("mainCache"); //캐시삭제
 window.location.href = "login.html";
 		});
 	}

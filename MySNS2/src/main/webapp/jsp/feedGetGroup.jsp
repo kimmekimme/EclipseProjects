@@ -2,5 +2,6 @@
 <%@ page import="dao.*" %>
 <%
 	String maxNo = request.getParameter("maxNo");
-	out.print((new FeedDAO()).getGroup(maxNo));
+String frids = request.getParameter("frids");
+	out.print((new FeedDAO()).getGroup(frids, maxNo));
 %>
