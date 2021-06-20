@@ -81,9 +81,9 @@ function upload(){
 			alert("아이디를 입력해 주세요.");
 			$("#id").focus();
 			return;
-			*/
+		}*/
 			id = loginId;
-		}
+		
 		
 	var content = $("#content").val().trim();
 		if (content == "") {
@@ -91,7 +91,7 @@ function upload(){
 			$("#content").focus();
 			return;
 		}
-	
+
 		var imgobj = $("#image")[0].files[0];
 		var jsonobj = {id: id, content: content, ts: getTime()};
 		if (imgobj != null) {
@@ -117,7 +117,7 @@ function upload(){
 			window.location.href = "main.html";
 		}
 		}, true);
-		
+}		
 		
 function getTime() {
 	var date = new Date();

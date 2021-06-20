@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/core.css">
+	<link rel="stylesheet" href="css/main.css">
+	<title>FriendTable</title>
+	<style>
+		.desc {
+		float: left;
+		width: 100%;
+		color: #888;
+		font-size: 0.9em;
+		}
+	</style>
+</head>
+<body>
+	<div class="page-hdr">MySNS</div>
+	<div class="page-body">
+		<div id="sections" class="section pad-24 mtop-30">
+			<input id="id" type="text" placeholder="친구 아이디" required>
+			<input type="submit" class="mtop-20" value="친구 확인" onclick="friendAdd(userObj)"> 
+		</div>
+	</div>
+	<div class="page-footer page-mnu">
+		<div class="menu" onclick="goHome()">메인</div>
+		<div class="menu" onclick="addFeed()">편집</div>
+		<div class="menu" onclick="showFriends()">친구</div>
+		<div class="menu" onclick="showOption()">설정</div>
+	</div>	
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+$(document).ready(function() {
+	Page.init(start);
+});
+
+var userObj = null;
+function start(uid) {
+	var params = {id: uid}; 
+	AJAX.call("jsp/userGet.jsp", params, function(data) {
+		userObj = JSON.parse(data.trim());
+		
+	}); 
+}
+
+function friendAdd(userObj) {
+	var myId = userObj.id;
+	var id = $("#id").val().trim();
+	if (id == "") {
+		alert("아이디를 입력해 주세요.");
+		$("#id").focus();
+		return;
+	}
+	
+	var params = {id: myId, frid: id};
+	AJAX.call("jsp/friendAdd.jsp", params, function(data) {
+		var code = data.trim();
+		if(code == "NA") {
+			alert("회원 정보를 찾을 수 없습니다.");
+		}
+		else if (code == "EX") {
+			alert("이미 추가된 친구입니다.");
+		}
+		else {		
+			alert("친구 추가가 완료되었습니다.");
+			window.location.href = "friend.html";
+		}
+	});
+}
+
+function goHome() {
+	window.location.href = "main.html";
+}
+	
+function addFeed() {
+	window.location.href = "feedAdd.html";
+}
+
+function showFriends() {
+	window.location.href = "friend.html";
+}
+
+function showOption() {
+	window.location.href = "option.html";
+}
+</script>

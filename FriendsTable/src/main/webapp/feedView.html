@@ -1,0 +1,93 @@
+<html>
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/core.css">
+<link rel="stylesheet" href="css/main.css">
+<title>FriendTable</title>
+<style>
+.feed .text-view {
+	float: left;
+	width: 100%;
+	margin: 20px 0px;
+	padding: 0px 16px;
+	box-sizing: border-box;
+	
+	overflow: visible;	
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+</style>
+</head>
+<body>
+	<div class="page-hdr">MySNS</div>
+	<div class="page-body">
+		<div id="content" class="section"></div>
+		
+	</div>
+	<div class="page-footer page-mnu">
+		<div class="menu" onclick="goHome()">메인</div>
+		<div class="menu" onclick="addFeed()">편집</div>
+		<div class="menu" onclick="showFriends()">친구</div>
+		<div class="menu" onclick="showOption()">설정</div>
+	</div>	
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+$(document).ready(function() {
+	Page.init(start, "feedView.html");
+});
+
+function start(uid, feed) {
+	$("#content").append(getFeedCode(feed));
+}
+
+function getFeedCode(feed) {
+	var name = (feed.user == null) ? feed.id : feed.user.name;
+	var str = "<div class='feed'>";
+	str += "<div class='author'>";
+	str += "<div class='photo'></div>";
+	str += "<div class='name'>" + name + "</div>";
+	str += "</div>";	
+	str += "<div class='text-view'>" + feed.content + " " + feed.start + " ~ " ;
+	str += feed.end + "</div>";
+	str += "</div>";
+	str += "<div id='delete' class='button' onclick='feedRemove("+feed.no+")'>삭제</div>";
+	return str;
+}
+
+function feedRemove(fno) {
+	var params = {no: fno};
+	AJAX.call("jsp/feedRemove.jsp", params, function(data) {
+		var code = data.trim();
+		if (code == "ER") {
+			alert("일정 삭제 중 오류가 발생하였습니다.");
+		}
+		else {
+			alert("일정 삭제가 완료되었습니다.");
+			window.location.href = "main.html";
+		}
+	});
+}
+
+function goHome() {
+	window.location.href = "main.html";
+}
+
+function addFeed() {
+	window.location.href = "feedAdd.html";
+}
+
+function showFriends() {
+	window.location.href = "friend.html";
+}
+
+function showOption() {
+	window.location.href = "option.html";
+}
+</script>

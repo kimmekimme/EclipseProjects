@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/core.css">
+<link rel="stylesheet" href="css/main.css">
+<title>FriendTable</title>
+<style>
+.pad-4 { padding: 0 4px; }
+textarea {
+	float: left;
+	width: 100%;
+	height: 160px;
+	padding: 16px;
+	box-sizing: border-box;
+	font-size: 1.0em;
+	font-family: 'Malgun Gothic', 'Arial'; 
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	outline: none;
+}
+input[type=file] {
+	padding: 0px;
+	border: none;
+	outline: none;
+	font-size: 0.95em;
+}
+.desc {
+	float: left;
+	width: 100%;
+	margin-bottom: 5px;
+	font-size: 0.95em;
+	color: #000;
+}
+</style>
+</head>
+<body>
+	<div class="page-hdr">MySNS</div>
+	<div class="page-body">
+		<div class="section pad-24 mtop-10">
+			<div class="desc mtop-20 mbot-20">
+				할 일
+			<input id="content" class="mtop-10">
+			<div class="desc mtop-20 mbot-20">
+				시작 시간
+			<input type="date" id="startDay" class="mtop-10">
+			<input type="time" id="startTime" class="mtop-10">
+			<div class="desc mtop-20 mbot-20">
+				종료 시간
+			<input type="date" id="endDay" class="mtop-10">
+			<input type="time" id="endTime" class="mtop-10">
+			<input type="submit" class="mtop-30" value="일정 추가" onclick="upload()">
+		</div>
+	</div>
+	<div class="page-footer page-mnu">
+		<div class="menu" onclick="goHome()">메인</div>
+		<div class="menu" onclick="addFeed()">편집</div>
+		<div class="menu" onclick="showFriends()">친구</div>
+		<div class="menu" onclick="showUserInfo()">설정</div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+	$(document).ready(function() {
+		Page.init(start);
+	});
+	
+	var loginId=null;
+	function start(uid) {
+		loginId=uid;
+		console.log(loginId);
+	}
+	
+	function upload() {	
+		var id=loginId;
+		
+		var content = $("#content").val().trim();
+		if (content == "") {
+			alert("할 일을 입력해 주세요.");
+			$("#content").focus();
+			return;
+		}
+		
+		var start = $("#startDay").val().trim()+" "+$("#startTime").val().trim();
+		if (start == "") {
+			alert("시작 시간을 입력해 주세요.");
+			$("#startDay").focus();
+			return;
+		}
+		
+		var end = $("#endDay").val().trim()+" "+$("#endTime").val().trim();
+		if (end == "") {
+			alert("종료 시간을 입력해 주세요.");
+			$("#endDay").focus();
+			return;
+		}
+				
+		var jsonobj = {id: id, content: content, start: start, end: end };		
+
+		var params = new FormData();		
+		
+		params.append("jsonstr", JSON.stringify(jsonobj));
+		
+		AJAX.call("jsp/feedAdd.jsp", params, function(data) {
+			var code = data.trim();
+			if (code == "ER") {
+				alert("작성 글의 업로드 중 오류가 발생하였습니다.");
+			}
+			else {
+				alert("작성 글의 업로드가 완료되었습니다.");
+				DataCache.remove("mainCache");
+				window.location.href = "main.html";
+			}
+		}, true);
+	}	
+	
+	function goHome() {
+		window.location.href = "main.html";
+	}
+		
+	function addFeed() {
+		window.location.href = "feedAdd.html";
+	}
+
+	function showFriends() {
+		window.location.href = "friend.html";
+	}
+
+	function showUserInfo() {
+		window.location.href = "userInfo.html";
+	}
+	
+	function getToday() {
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = ("0" + (1 + date.getMonth())).slice(-2);
+		var day = ("0" + date.getDate()).slice(-2);
+		return year + "-" + month + "-" + day;
+	}
+</script>

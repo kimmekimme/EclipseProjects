@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="New_MySNS">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="mysql-connector-java-8.0.25.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/mysql-connector-java-8.0.25/mysql-connector-java-8.0.25">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="json-simple-1.1.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/json-simple-1.1.1/json-simple-1.1.1">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-fileupload-1.4.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/commons-fileupload-1.4/commons-fileupload-1.4">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-io-2.9.0.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/commons-io-2.9.0/commons-io-2.9.0">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="New_MySNS"/>
+        <property name="java-output-path" value="/New_MySNS/build/classes"/>
+    </wb-module>
+</project-modules>

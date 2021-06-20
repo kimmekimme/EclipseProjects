@@ -1,0 +1,40 @@
+<html>
+<head>
+<meta name=viewport
+	content="width=device-width, initial-scale=1, user-scalable=0">
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/core.css">
+<title>FriendTable</title>
+</head>
+<body>
+	<div class="page-hdr">MySNS</div>
+	<div class="page-body">
+		<div class="menu" style='padding: 0px 10px;' onclick="goBack()"><--</div>
+		<table class="section">
+			<tr>
+				<td colspan=3>알람</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="alram" value="onalram">켜기</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="alram" value="offalram">끄기</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+	function goBack() {
+		history.back();
+	}
+</script>

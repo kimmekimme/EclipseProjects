@@ -153,7 +153,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="hello" path="/hello" reloadable="true" source="org.eclipse.jst.jee.server:hello"/><Context docBase="hello2" path="/hello2" reloadable="true" source="org.eclipse.jst.jee.server:hello2"/><Context docBase="MySNS" path="/MySNS" reloadable="true" source="org.eclipse.jst.jee.server:MySNS"/><Context docBase="MySNS2" path="/MySNS2" reloadable="true" source="org.eclipse.jst.jee.server:MySNS2"/></Host>
+      <Context docBase="hello" path="/hello" reloadable="true" source="org.eclipse.jst.jee.server:hello"/><Context docBase="hello2" path="/hello2" reloadable="true" source="org.eclipse.jst.jee.server:hello2"/><Context docBase="MySNS2" path="/MySNS2" reloadable="true" source="org.eclipse.jst.jee.server:MySNS2"/><Context docBase="MySNS3" path="/MySNS3" reloadable="true" source="org.eclipse.jst.jee.server:MySNS3"/><Context docBase="New_MySNS" path="/New_MySNS" reloadable="true" source="org.eclipse.jst.jee.server:New_MySNS"/><Context docBase="FriendsTable" path="/FriendsTable" reloadable="true" source="org.eclipse.jst.jee.server:FriendsTable"/></Host>
     </Engine>
   </Service>
 </Server>

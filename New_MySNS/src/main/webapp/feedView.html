@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/core.css">
+<link rel="stylesheet" href="css/main.css">
+<title>kimmetalk</title>
+<style>
+.feed .text-view {
+	float: left;
+	width: 100%;
+	margin: 20px 0px;
+	padding: 0px 16px;
+	box-sizing: border-box;
+	
+	overflow: visible;	
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+</style>
+</head>
+<body>
+	<div class="page-hdr">kimmetalk</div>
+	<div class="page-body">
+		<div id="content" class="section"></div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+$(document).ready(function() {
+	Page.init(start, "feedView.html");
+});
+
+function start(uid, feed) {
+	$("#content").append(getFeedCode(feed));
+}
+
+function getFeedCode(feed) {
+	var name = (feed.user == null) ? feed.id : feed.user.name;
+	var str = "<div class='feed'>";
+	str += "<div class='author'>";
+	str += "<div class='photo'></div>";
+	str += "<div class='name'>" + name + "</div>";
+	str += "</div>";
+	if (feed.images != null) {
+		var imgurl = "images/" + feed.images[0];
+		str += "<div class='image' style='background-image: url(\"" + imgurl + "\")'></div>";
+	}
+	str += "<div class='text-view'>"+ feed.content + "</div>";
+	str += "</div>";
+	return str;
+}
+</script>
