@@ -26,5 +26,5 @@
 ![실행영상](https://user-images.githubusercontent.com/80742971/122689221-035a3600-d25c-11eb-9425-1692b9f20c6f.gif)
 
 ```java
-Console.log("Welcome to Kimmetalk")
+Console.log("Welcome to Kimmetalk!")
 ```
